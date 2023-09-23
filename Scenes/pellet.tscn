@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfr8j3rrb2xuj"]
+
+[ext_resource type="Texture2D" uid="uid://crtka82xrc0c8" path="res://icon.svg" id="1_u0vfu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3cs3u"]
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2o2t1"]
+radius = 13.0
+height = 50.0
+
+[node name="pellet" type="RigidBody2D" groups=["Pellet_group"]]
+position = Vector2(289, 156)
+collision_mask = 0
+lock_rotation = true
+linear_damp = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.580392, 0.207843, 0.231373, 1)
+scale = Vector2(0.342187, 0.170313)
+texture = ExtResource("1_u0vfu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3cs3u")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2o2t1")

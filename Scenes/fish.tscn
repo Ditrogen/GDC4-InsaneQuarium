@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dr0x18tqpobcd"]
+
+[ext_resource type="Script" path="res://Scenes/fish.gd" id="1_4rye7"]
+[ext_resource type="Texture2D" uid="uid://crtka82xrc0c8" path="res://icon.svg" id="1_c2x5a"]
+[ext_resource type="PackedScene" uid="uid://cdotne6cde18u" path="res://wandering_controller.tscn" id="3_dokv3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k48eu"]
+radius = 30.0
+height = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egjye"]
+radius = 296.007
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osulr"]
+radius = 40.0
+height = 154.0
+
+[node name="Fish" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_4rye7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0.745098, 0.352941, 1)
+scale = Vector2(1, 0.46875)
+texture = ExtResource("1_c2x5a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_k48eu")
+
+[node name="foodDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="foodDetection"]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_egjye")
+
+[node name="Wandering Controller" parent="." instance=ExtResource("3_dokv3")]
+wanderRange = 300
+
+[node name="eatArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="eatArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_osulr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="CoinTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="foodDetection" to="." method="_on_food_detection_body_entered"]
+[connection signal="body_exited" from="foodDetection" to="." method="_on_food_detection_body_exited"]
+[connection signal="body_entered" from="eatArea" to="." method="_on_eat_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="CoinTimer" to="." method="_on_coin_timer_timeout"]
