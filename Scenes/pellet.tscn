@@ -1,6 +1,84 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfr8j3rrb2xuj"]
+[gd_scene load_steps=15 format=3 uid="uid://bfr8j3rrb2xuj"]
 
-[ext_resource type="Texture2D" uid="uid://crtka82xrc0c8" path="res://icon.svg" id="1_u0vfu"]
+[ext_resource type="Texture2D" uid="uid://1yibsxsx3fue" path="res://Sprites/makanan-ikan-level-1.png" id="1_aaxpf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ypbm"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3koxs"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a74qd"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_panho"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqdjv"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(1536, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrldt"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(1920, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj1de"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(2304, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etuke"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(2688, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47g48"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(3072, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6sl1"]
+atlas = ExtResource("1_aaxpf")
+region = Rect2(3456, 0, 384, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ptweg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ypbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3koxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a74qd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_panho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqdjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrldt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj1de")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etuke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47g48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6sl1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3cs3u"]
 height = 40.0
@@ -15,10 +93,11 @@ collision_mask = 0
 lock_rotation = true
 linear_damp = 20.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.580392, 0.207843, 0.231373, 1)
-scale = Vector2(0.342187, 0.170313)
-texture = ExtResource("1_u0vfu")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.14, 0.14)
+sprite_frames = SubResource("SpriteFrames_ptweg")
+autoplay = "default"
+frame_progress = 0.855545
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

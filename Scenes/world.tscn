@@ -1,6 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf24u61lnipf0"]
+[gd_scene load_steps=12 format=3 uid="uid://bf24u61lnipf0"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_0eyll"]
+[ext_resource type="Texture2D" uid="uid://cr5dfgfa7tax0" path="res://Sprites/BG1.png" id="2_i1m5w"]
+[ext_resource type="Texture2D" uid="uid://ds2ksemhk2soj" path="res://Sprites/GUI.png" id="3_bwvyp"]
+[ext_resource type="PackedScene" uid="uid://dr0x18tqpobcd" path="res://Scenes/fish.tscn" id="4_fqg1k"]
+[ext_resource type="PackedScene" uid="uid://olfoewp0k8ns" path="res://Scenes/pause_menu.tscn" id="5_2pljh"]
+[ext_resource type="PackedScene" uid="uid://b7qoc3t3a10yj" path="res://Scenes/game over.tscn" id="6_bohjk"]
+[ext_resource type="PackedScene" uid="uid://cawqoax1q6ae5" path="res://Scenes/win.tscn" id="7_v12lb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h7k85"]
 size = Vector2(8.00007, 1920)
@@ -8,66 +14,228 @@ size = Vector2(8.00007, 1920)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nq2pt"]
 size = Vector2(1920, 64)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fnior"]
+texture = ExtResource("3_bwvyp")
+texture_margin_top = 94.0
+texture_margin_bottom = 120.0
+region_rect = Rect2(48, 310, 1219, 89)
+
+[sub_resource type="Theme" id="Theme_qwkag"]
+Panel/styles/panel = SubResource("StyleBoxTexture_fnior")
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_0eyll")
 
-[node name="Wall_Left" type="StaticBody2D" parent="."]
+[node name="Bg1" type="Sprite2D" parent="."]
+position = Vector2(960, 600)
+texture = ExtResource("2_i1m5w")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall_Left" type="StaticBody2D" parent="Walls"]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_Left"]
 position = Vector2(-4, 564)
 shape = SubResource("RectangleShape2D_h7k85")
 
-[node name="Wall_Left2" type="StaticBody2D" parent="."]
+[node name="Wall_Left2" type="StaticBody2D" parent="Walls"]
 position = Vector2(1928, 0)
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Left2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_Left2"]
 position = Vector2(-4, 564)
 shape = SubResource("RectangleShape2D_h7k85")
 
-[node name="Wall_Left3" type="StaticBody2D" parent="."]
+[node name="Wall_Left3" type="StaticBody2D" parent="Walls"]
 position = Vector2(2032, 120)
 rotation = 1.5708
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Left3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_Left3"]
 position = Vector2(-3.99995, 1072)
 shape = SubResource("RectangleShape2D_h7k85")
 
-[node name="Wall_Left4" type="StaticBody2D" parent="."]
+[node name="Wall_Left4" type="StaticBody2D" parent="Walls"]
 position = Vector2(2032, 1088)
 rotation = 1.5708
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Left4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall_Left4"]
 position = Vector2(-3.99995, 1072)
 shape = SubResource("RectangleShape2D_h7k85")
 
-[node name="Border_bottom" type="Area2D" parent="."]
+[node name="Border_bottom" type="Area2D" parent="Walls"]
 position = Vector2(960, 1048)
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border_bottom"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Border_bottom"]
 shape = SubResource("RectangleShape2D_nq2pt")
 
-[node name="UI Shop Placeholder" type="ColorRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
 offset_right = 1920.0
-offset_bottom = 112.0
+offset_bottom = 120.0
+theme = SubResource("Theme_qwkag")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 72.0
+offset_right = 552.0
+offset_bottom = 103.0
+text = "$100
+"
+
+[node name="upFoodLimit" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 72.0
+offset_right = 824.0
+offset_bottom = 103.0
+text = "$200"
+
+[node name="eggButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 72.0
+offset_right = 1060.0
+offset_bottom = 103.0
+text = "$300"
+
+[node name="ColorRect5" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.142
+anchor_bottom = 0.867
+offset_left = 936.0
+offset_top = 16.0
+offset_right = 855.36
+offset_bottom = -48.04
 color = Color(0, 0, 0, 1)
 
-[node name="Button" type="Button" parent="UI Shop Placeholder"]
+[node name="foodLimit" type="Label" parent="Panel/ColorRect5"]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 36.0
-offset_right = 158.0
-offset_bottom = 76.0
-text = "Spawn Fish
-"
+offset_left = 8.0
+offset_right = 144.0
+offset_bottom = 40.0
+text = "Eggs:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="eggCount" type="Label" parent="Panel/ColorRect5"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 160.0
+offset_bottom = 40.0
+text = "0/3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect4" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.142
+anchor_bottom = 0.867
+offset_left = 664.0
+offset_top = 16.0
+offset_right = 583.36
+offset_bottom = -48.04
+color = Color(0, 0, 0, 1)
+
+[node name="foodLimit" type="Label" parent="Panel/ColorRect4"]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 40.0
+text = "Upgrade Food Limit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.142
+anchor_bottom = 0.867
+offset_left = 392.0
+offset_top = 16.0
+offset_right = 311.36
+offset_bottom = -48.04
+color = Color(0, 0, 0, 1)
+
+[node name="buyFish" type="Label" parent="Panel/ColorRect3"]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 40.0
+text = "Buy Fish!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.142
+anchor_bottom = 0.867
+offset_left = 40.0
+offset_top = 16.0
+offset_right = -40.64
+offset_bottom = -48.04
+color = Color(0, 0, 0, 1)
+
+[node name="coinLabel" type="Label" parent="Panel/ColorRect"]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 40.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.142
+anchor_bottom = 0.867
+offset_left = 40.0
+offset_top = 64.0
+offset_right = -40.64
+offset_bottom = -0.0400009
+color = Color(0, 0, 0, 1)
+
+[node name="minutes" type="Label" parent="Panel/ColorRect2"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 96.0
+offset_bottom = 40.0
+text = "00 :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="seconds" type="Label" parent="Panel/ColorRect2"]
+layout_mode = 0
+offset_left = 96.0
+offset_right = 128.0
+offset_bottom = 40.0
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mainMenuButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1608.0
+offset_top = 24.0
+offset_right = 1752.0
+offset_bottom = 96.0
+text = "Main Menu"
+
+[node name="pauseButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1440.0
+offset_top = 24.0
+offset_right = 1584.0
+offset_bottom = 96.0
+text = "Pause Game"
 
 [node name="Clickable_area" type="TextureButton" parent="."]
 offset_left = 5.0
@@ -79,8 +247,63 @@ offset_bottom = 1015.0
 
 [node name="Fishes" type="Node2D" parent="."]
 
+[node name="Fish1" parent="Fishes" instance=ExtResource("4_fqg1k")]
+position = Vector2(456, 384)
+
+[node name="Fish2" parent="Fishes" instance=ExtResource("4_fqg1k")]
+position = Vector2(1208, 736)
+
 [node name="Drops" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="Border_bottom" to="." method="_on_border_bottom_body_entered"]
-[connection signal="pressed" from="UI Shop Placeholder/Button" to="." method="_on_button_pressed"]
+[node name="pause menu" parent="." instance=ExtResource("5_2pljh")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 736.0
+offset_top = 312.0
+offset_right = 736.0
+offset_bottom = 312.0
+scale = Vector2(4.47553, 4.14492)
+size_flags_horizontal = 4
+
+[node name="game over" parent="." instance=ExtResource("6_bohjk")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 488.0
+offset_top = 272.0
+offset_right = 488.0
+offset_bottom = 272.0
+scale = Vector2(4.93121, 3.53447)
+
+[node name="win" parent="." instance=ExtResource("7_v12lb")]
+visible = false
+offset_left = 496.0
+offset_top = 272.0
+offset_right = 496.0
+offset_bottom = 272.0
+scale = Vector2(4.87083, 3.50371)
+
+[connection signal="body_entered" from="Walls/Border_bottom" to="." method="_on_border_bottom_body_entered"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/upFoodLimit" to="." method="_on_up_food_limit_pressed"]
+[connection signal="pressed" from="Panel/eggButton" to="." method="_on_egg_button_pressed"]
+[connection signal="pressed" from="Panel/mainMenuButton" to="." method="mainMenu"]
+[connection signal="pressed" from="Panel/pauseButton" to="." method="paused"]
 [connection signal="button_down" from="Clickable_area" to="." method="_on_clickable_area_button_down"]
+[connection signal="pressed" from="pause menu/Panel/VBoxContainer/Resume" to="." method="unpaused"]
+[connection signal="pressed" from="pause menu/Panel/VBoxContainer/Quit" to="." method="mainMenu"]
+[connection signal="pressed" from="game over/Panel/VBoxContainer/Restart" to="." method="restart"]
+[connection signal="pressed" from="game over/Panel/VBoxContainer/Quit" to="." method="mainMenu"]
+[connection signal="pressed" from="win/Panel/VBoxContainer/Restart" to="." method="restart"]
+[connection signal="pressed" from="win/Panel/VBoxContainer/Quit" to="." method="mainMenu"]
+
+[editable path="pause menu"]
+[editable path="game over"]
+[editable path="win"]

@@ -1,15 +1,93 @@
-[gd_scene load_steps=7 format=3 uid="uid://dr0x18tqpobcd"]
+[gd_scene load_steps=18 format=3 uid="uid://dr0x18tqpobcd"]
 
 [ext_resource type="Script" path="res://Scenes/fish.gd" id="1_4rye7"]
-[ext_resource type="Texture2D" uid="uid://crtka82xrc0c8" path="res://icon.svg" id="1_c2x5a"]
+[ext_resource type="Texture2D" uid="uid://dj80c87pqxxwd" path="res://Sprites/Goldfish-Swim-Spritesheet.png" id="2_y8kgm"]
 [ext_resource type="PackedScene" uid="uid://cdotne6cde18u" path="res://wandering_controller.tscn" id="3_dokv3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix7ay"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpogv"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q7pm"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77dww"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icxbi"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(1536, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu7j2"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(1920, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_412uh"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(2304, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe3wp"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(2688, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmsgh"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(3072, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqhsd"]
+atlas = ExtResource("2_y8kgm")
+region = Rect2(3456, 0, 384, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mb2pm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ix7ay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpogv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q7pm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77dww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icxbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu7j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_412uh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pe3wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmsgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqhsd")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 9.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k48eu"]
 radius = 30.0
-height = 128.0
+height = 148.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_egjye"]
-radius = 296.007
+radius = 529.015
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osulr"]
 radius = 40.0
@@ -20,10 +98,12 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_4rye7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0, 0.745098, 0.352941, 1)
-scale = Vector2(1, 0.46875)
-texture = ExtResource("1_c2x5a")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(0.545, 0.545)
+sprite_frames = SubResource("SpriteFrames_mb2pm")
+animation = &"swim"
+autoplay = "swim"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -32,6 +112,7 @@ shape = SubResource("CapsuleShape2D_k48eu")
 [node name="foodDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="foodDetection"]
+position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_egjye")
 
@@ -45,17 +126,22 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_osulr")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 one_shot = true
 autostart = true
 
 [node name="CoinTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 7.0
 one_shot = true
 autostart = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="body_entered" from="foodDetection" to="." method="_on_food_detection_body_entered"]
 [connection signal="body_exited" from="foodDetection" to="." method="_on_food_detection_body_exited"]
 [connection signal="body_entered" from="eatArea" to="." method="_on_eat_area_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CoinTimer" to="." method="_on_coin_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://de1ed50rvnl37"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_2iljf"]
+[ext_resource type="Texture2D" uid="uid://cvmfwvrtgh7jn" path="res://Sprites/bosslevel_ikaniquarium.png" id="2_qvl0o"]
+
+[sub_resource type="SystemFont" id="SystemFont_3ic53"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u67k3"]
+font = SubResource("SystemFont_3ic53")
+font_size = 100
+outline_size = 5
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_2iljf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(122.975, 2)
+scale = Vector2(1.1281, 1.1281)
+texture = ExtResource("2_qvl0o")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -325.0
+offset_top = -276.0
+offset_right = 325.0
+offset_bottom = -136.0
+grow_horizontal = 2
+text = "Ikaniquarium"
+label_settings = SubResource("LabelSettings_u67k3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -596.0
+offset_right = -236.0
+offset_bottom = -198.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.50458, 3.45692)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLAY"
+
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "EXIT"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
